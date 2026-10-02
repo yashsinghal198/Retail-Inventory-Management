@@ -23,6 +23,7 @@ public class SecurityConfig {
 
     private final CustomUserDetailsService userDetailsService;
     private final AuthenticationFilter authenticationFilter;
+
     @Bean
     public SecurityFilterChain securityFilterChain(
             HttpSecurity http) throws Exception {
@@ -55,11 +56,25 @@ public class SecurityConfig {
                 .authenticationProvider(authenticationProvider())
                 .exceptionHandling(exception -> exception
                         .authenticationEntryPoint((request, response, authException) -> {
+                            // Print the real error in the IntelliJ console
+                            authException.printStackTrace();
+
+                            // Show the real reason on the login page
+                            String reason = authException.getClass().getSimpleName()
+                                    + ": " + authException.getMessage();
+                            if (authException.getCause() != null) {
+                                reason += " | cause: "
+                                        + authException.getCause().getClass().getSimpleName()
+                                        + ": " + authException.getCause().getMessage();
+                            }
+                            reason = reason.replace("\"", "'")
+                                    .replace("\\", " ")
+                                    .replace("\n", " ")
+                                    .replace("\r", " ");
+
                             response.setStatus(HttpServletResponse.SC_UNAUTHORIZED);
                             response.setContentType("application/json");
-                            response.getWriter().write(
-                                    "{\"message\":\"User account is inactive or authentication failed\"}"
-                            );
+                            response.getWriter().write("{\"message\":\"" + reason + "\"}");
                         })
                 )
                 .addFilterBefore(authenticationFilter, UsernamePasswordAuthenticationFilter.class);

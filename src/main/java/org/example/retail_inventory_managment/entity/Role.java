@@ -3,16 +3,15 @@ package org.example.retail_inventory_managment.entity;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
-import lombok.Data;
+import lombok.Getter;
 import lombok.NoArgsConstructor;
+import lombok.Setter;
 import org.example.retail_inventory_managment.enums.RoleName;
-
-import java.util.HashSet;
-import java.util.Set;
 
 @Entity
 @Table(name = "roles")
-@Data
+@Getter
+@Setter
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
@@ -23,11 +22,6 @@ public class Role {
     private Long id;
 
     @Enumerated(EnumType.STRING)
-    @Column(nullable = false,unique = true)
+    @Column(nullable = false, unique = true)
     private RoleName roleName;
-
-    @ManyToMany(mappedBy = "roles")
-    private Set<User> userSet = new HashSet<>();
-
-
 }

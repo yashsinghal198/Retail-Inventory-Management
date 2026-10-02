@@ -1,11 +1,9 @@
 package org.example.retail_inventory_managment.entity;
 
 import jakarta.persistence.*;
-import jakarta.validation.constraints.Min;
 import lombok.*;
 import java.util.HashSet;
 import java.util.Set;
-
 
 @Entity
 @Table(name = "users")
@@ -19,7 +17,6 @@ public class User {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-
     @Column(nullable = false)
     private String email;
 
@@ -29,17 +26,21 @@ public class User {
     @Column(nullable = false)
     private String lastName;
 
-    @Min(value = 8,message = "password must be atLeast 8 length")
     private String password;
 
     @Column(nullable = false)
     private String phoneNo;
 
+    @Builder.Default
     @Column(nullable = false)
     private boolean isActive = true;
 
+    @Builder.Default
+    @EqualsAndHashCode.Exclude
+    @ToString.Exclude
     @ManyToMany(fetch = FetchType.EAGER)
-    @JoinTable(name = "user_roles",joinColumns = @JoinColumn(name = "user_id"),inverseJoinColumns = @JoinColumn(name = "role_id"))
+    @JoinTable(name = "user_roles",
+            joinColumns = @JoinColumn(name = "user_id"),
+            inverseJoinColumns = @JoinColumn(name = "role_id"))
     private Set<Role> roles = new HashSet<>();
-
 }
