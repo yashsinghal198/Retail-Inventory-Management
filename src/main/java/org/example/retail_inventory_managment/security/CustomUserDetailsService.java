@@ -1,8 +1,8 @@
 package org.example.retail_inventory_managment.security;
-import org.example.retail_inventory_managment.entity.Role;
+
+import lombok.RequiredArgsConstructor;
 import org.example.retail_inventory_managment.entity.User;
 import org.example.retail_inventory_managment.repository.UserRepository;
-import lombok.RequiredArgsConstructor;
 import org.jspecify.annotations.NonNull;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
@@ -17,19 +17,19 @@ public class CustomUserDetailsService implements UserDetailsService {
 
     @Override
     public UserDetails loadUserByUsername(@NonNull String email) throws UsernameNotFoundException {
-        User user = userRepository.findByEmail(email).orElseThrow(()->new RuntimeException("User not found"));
+        User user = userRepository.findByEmail(email)
+                .orElseThrow(() -> new UsernameNotFoundException("User not found"));
 
-        String[] role = user.getRoles()
+        String[] roles = user.getRoles()
                 .stream()
-                .map(Role::getRoleName)
+                .map(r -> r.getRoleName().name())   // enum -> String
                 .toArray(String[]::new);
 
         return org.springframework.security.core.userdetails.User
                 .withUsername(user.getEmail())
                 .password(user.getPassword())
-                .roles(role)
+                .roles(roles)
                 .disabled(!user.isActive())
                 .build();
-
     }
 }
