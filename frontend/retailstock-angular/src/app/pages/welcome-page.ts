@@ -31,7 +31,7 @@ const blankAddress = () => ({ street: '', city: '', state: '', postalCode: '', c
               </div>
             </div>
           </div>
-          
+
           <div class="flex items-center gap-4">
             <div class="hidden md:flex flex-col items-end mr-2">
               <span class="text-sm font-bold text-slate-900">{{ fullName() || 'My Account' }}</span>
@@ -54,10 +54,10 @@ const blankAddress = () => ({ street: '', city: '', state: '', postalCode: '', c
         @if (mobileNav()) {
           <div class="fixed inset-0 z-30 bg-slate-900/40 backdrop-blur-sm lg:hidden transition-opacity" (click)="mobileNav.set(false)"></div>
         }
-        
-        <aside class="fixed inset-y-0 left-0 z-40 w-72 bg-white border-r border-slate-200 shadow-2xl lg:shadow-none lg:sticky lg:top-16 lg:h-[calc(100vh-4rem)] lg:w-64 lg:shrink-0 transition-transform duration-300 ease-in-out" 
-               [class.-translate-x-full]="!mobileNav()" 
-               [class.translate-x-0]="mobileNav()" 
+
+        <aside class="fixed inset-y-0 left-0 z-40 w-72 bg-white border-r border-slate-200 shadow-2xl lg:shadow-none lg:sticky lg:top-16 lg:h-[calc(100vh-4rem)] lg:w-64 lg:shrink-0 transition-transform duration-300 ease-in-out"
+               [class.-translate-x-full]="!mobileNav()"
+               [class.translate-x-0]="mobileNav()"
                [class.lg:translate-x-0]="true">
           <div class="h-full overflow-y-auto px-4 py-6 flex flex-col justify-between">
             <div>
@@ -65,10 +65,10 @@ const blankAddress = () => ({ street: '', city: '', state: '', postalCode: '', c
                 <span class="text-xs font-bold uppercase tracking-widest text-slate-400">Main Menu</span>
                 <button (click)="mobileNav.set(false)" class="p-2 text-slate-400 hover:bg-slate-100 rounded-lg"><lucide-icon [img]="XIcon" class="h-5 w-5" /></button>
               </div>
-              
+
               <nav class="space-y-1.5">
                 @for (item of nav; track item.id) {
-                  <button (click)="select(item.id)" 
+                  <button (click)="select(item.id)"
                           class="group flex w-full items-center gap-3 rounded-xl px-3 py-2.5 text-sm font-semibold transition-all"
                           [class.bg-indigo-50]="tab() === item.id"
                           [class.text-indigo-700]="tab() === item.id"
@@ -81,7 +81,7 @@ const blankAddress = () => ({ street: '', city: '', state: '', postalCode: '', c
                 }
               </nav>
             </div>
-            
+
             <div class="mt-8 rounded-2xl bg-slate-900 p-5 shadow-lg relative overflow-hidden">
               <div class="absolute top-0 right-0 w-32 h-32 bg-indigo-500/20 blur-2xl rounded-full"></div>
               <div class="relative z-10">
@@ -107,13 +107,13 @@ const blankAddress = () => ({ street: '', city: '', state: '', postalCode: '', c
 
             <!-- Tab Content -->
             @switch (tab()) {
-            @case ('overview') { 
+            @case ('overview') {
               <div class="space-y-8 animate-in fade-in duration-500">
                 <!-- Dashboard Hero -->
                 <div class="relative overflow-hidden rounded-3xl bg-indigo-900 p-8 sm:p-10 text-white shadow-xl shadow-indigo-200">
                   <div class="absolute inset-0 bg-[url('https://www.transparenttextures.com/patterns/cubes.png')] opacity-10"></div>
                   <div class="absolute -right-20 -top-20 h-64 w-64 rounded-full bg-indigo-500 blur-3xl opacity-50"></div>
-                  
+
                   <div class="relative z-10 flex flex-col md:flex-row md:items-end justify-between gap-6">
                     <div class="max-w-xl">
                       <span class="inline-flex items-center rounded-full bg-indigo-800/80 px-3 py-1 text-xs font-semibold text-indigo-200 backdrop-blur-sm border border-indigo-700/50 mb-4">{{ greeting() }}</span>
@@ -195,12 +195,12 @@ const blankAddress = () => ({ street: '', city: '', state: '', postalCode: '', c
                           {{ (fullName() || auth.email() || '?').charAt(0).toUpperCase() }}
                         </div>
                       </div>
-                      
+
                       <div class="mt-14 mb-6">
                         <h3 class="text-xl font-bold text-slate-900">{{ fullName() || 'My Account' }}</h3>
                         <p class="text-sm font-medium text-slate-500">{{ auth.email() }}</p>
                       </div>
-                      
+
                       <div class="space-y-4 flex-1">
                         <div>
                           <p class="text-xs font-bold uppercase tracking-widest text-slate-400 mb-2">Assigned Roles</p>
@@ -213,7 +213,7 @@ const blankAddress = () => ({ street: '', city: '', state: '', postalCode: '', c
                           </div>
                         </div>
                       </div>
-                      
+
                       <div class="mt-6 rounded-xl bg-indigo-50 p-4 border border-indigo-100/50">
                         <div class="flex gap-3">
                           <lucide-icon [img]="LockIcon" class="h-5 w-5 text-indigo-500 shrink-0" />
@@ -224,6 +224,7 @@ const blankAddress = () => ({ street: '', city: '', state: '', postalCode: '', c
                   </div>
                 </div>
               </div>
+              }
             @case ('products') { <section><ng-container *ngTemplateOutlet="pageHead; context: { title: 'Catalogue Control', desc: 'Manage your product catalogue and associated SKU variants.' }"></ng-container><div class="grid gap-6 xl:grid-cols-[1.2fr_.8fr]"><section class="panel"><div class="panel-header"><div><h2>Catalogue Listing</h2><p>{{ products.length }} total items registered</p></div><button class="icon-button" (click)="load()" title="Refresh"><lucide-icon [img]="RefreshIcon" /></button></div><div class="overflow-x-auto"><table><thead><tr><th>Category</th><th>Product Details</th><th>Price</th><th>System Status</th><th>Actions</th></tr></thead><tbody>@for (p of products; track p.id) {<tr><td><span class="badge badge-indigo">{{ p.category?.name || categoryName(p.category?.id) }}</span></td><td><div class="font-semibold text-slate-900">{{ p.name }}</div><div class="text-xs text-slate-500">Ref: {{ p.sku }}</div></td><td class="font-bold">{{ p.basePrice | currency:'INR':'symbol':'1.2-2' }}</td><td><span class="badge" [class.badge-green]="p.active" [class.badge-gray]="!p.active">{{ p.active ? 'Active' : 'Archived' }}</span></td><td><button class="danger-link" [disabled]="!p.active" (click)="deactivateProduct(p)"><lucide-icon [img]="BanIcon" />Suspend</button></td></tr>} @empty {<tr><td colspan="5" class="empty">Please set up a category to add products.</td></tr>}</tbody></table></div></section><section class="panel"><div class="panel-header"><div><h2>Register Product</h2><p>Provide product details.</p></div></div><form class="form-grid p-5" (ngSubmit)="saveProduct()"><label>Product Name<input [(ngModel)]="draft.product.name" name="pname" required></label><label>Assigned Category<select [(ngModel)]="draft.product.categoryId" name="pcat" required><option [ngValue]="null">Choose...</option>@for (c of categories; track c.id) {<option [ngValue]="c.id">{{ c.name }}</option>}</select></label><label>SKU / Identifier<input [(ngModel)]="draft.product.sku" name="psku" required></label><label>Initial Base Price<input [(ngModel)]="draft.product.basePrice" name="pprice" type="number" min="0" step="0.01" required></label><label class="sm:col-span-2">Detailed Description<textarea [(ngModel)]="draft.product.description" name="pdesc" rows="3"></textarea></label><button class="action-primary sm:col-span-2" type="submit"><lucide-icon [img]="PlusIcon" class="h-4 w-4" />Register Product</button></form></section></div><section class="panel mt-6"><div class="panel-header"><div><h2>Variant Configurator</h2><p>Set up multi-level variants.</p></div></div><form class="form-grid border-b border-slate-100 p-5" (ngSubmit)="saveVariant()"><label>Parent Product<select [(ngModel)]="draft.variant.productId" name="vproduct" required><option [ngValue]="null">Select parent</option>@for (p of products; track p.id) {<option [ngValue]="p.id">{{ p.name }} ({{ p.sku }})</option>}</select></label><label>Variant Name<input [(ngModel)]="draft.variant.name" name="vname" required></label><label>Variant SKU<input [(ngModel)]="draft.variant.sku" name="vsku" required></label><label>Override Price<input [(ngModel)]="draft.variant.price" name="vprice" type="number" min="0" step="0.01" required></label><button class="action-primary sm:col-span-2" type="submit">Register Variant</button></form><div class="overflow-x-auto"><table><thead><tr><th>Product Link</th><th>Variant Name</th><th>SKU code</th><th>Pricing</th><th>State</th><th></th></tr></thead><tbody>@for (v of variants; track v.id) {<tr><td class="font-semibold">{{ productName(v.productId) }}</td><td>{{ v.name }}</td><td><code class="text-xs text-indigo-600 bg-indigo-50 px-1.5 py-0.5 rounded">{{ v.sku }}</code></td><td>{{ v.price | currency:'INR':'symbol':'1.2-2' }}</td><td><span class="badge" [class.badge-green]="v.active" [class.badge-gray]="!v.active">{{ v.active ? 'Active' : 'Archived' }}</span></td><td><button class="danger-link" [disabled]="!v.active" (click)="deactivateVariant(v)"><lucide-icon [img]="BanIcon" />Archive</button></td></tr>} @empty {<tr><td colspan="6" class="empty">No active variants found.</td></tr>}</tbody></table></div></section></section> }
             @case ('inventory') { <section><ng-container *ngTemplateOutlet="pageHead; context: { title: 'Stock Ledger', desc: 'Real-time monitoring of quantity states across all registered warehouses.' }"></ng-container><div class="grid gap-6 xl:grid-cols-[1.25fr_.75fr]"><section class="panel"><div class="panel-header"><div><h2>Live Stock Tracking</h2><p>{{ inventory.length }} tracked units</p></div></div><div class="overflow-x-auto"><table><thead><tr><th>Location</th><th>Item Name</th><th>Incoming</th><th>Reserved</th><th>Available</th><th>Actions</th></tr></thead><tbody>@for (i of inventory; track i.id) {<tr><td><div class="flex items-center gap-2"><lucide-icon [img]="WarehouseIcon" class="h-4 w-4 text-slate-400" /><span class="font-semibold">{{ warehouseName(i.warehouseId) }}</span></div></td><td class="font-medium text-slate-700">{{ productName(i.productId) }}</td><td><span class="badge badge-indigo">{{ i.quantityIncoming }}</span></td><td><span class="badge badge-gray">{{ i.quantityReserved }}</span></td><td><span [class.text-rose-600]="i.quantityOnHand < 10" [class.text-emerald-600]="i.quantityOnHand >= 10" class="font-black text-lg">{{ i.quantityOnHand }}</span></td><td><button class="danger-link" (click)="deleteInventory(i)"><lucide-icon [img]="TrashIcon" />Remove</button></td></tr>} @empty {<tr><td colspan="6" class="empty">Inventory balances are empty.</td></tr>}</tbody></table></div></section><section class="panel"><div class="panel-header"><div><h2>Initialize Ledger</h2><p>Set base balances for locations.</p></div></div><form class="form-grid p-5" (ngSubmit)="saveInventory()"><label>Location (Warehouse)<select [(ngModel)]="draft.inventory.warehouseId" name="iwarehouse" required><option [ngValue]="null">Select location...</option>@for (w of warehouses; track w.id) {<option [ngValue]="w.id">{{ w.name }}</option>}</select></label><label>Target Product<select [(ngModel)]="draft.inventory.productId" name="iproduct" required><option [ngValue]="null">Select item...</option>@for (p of products; track p.id) {<option [ngValue]="p.id">{{ p.name }}</option>}</select></label><label>Incoming Supply<input [(ngModel)]="draft.inventory.quantityIncoming" name="iincoming" type="number" min="0"></label><label>Reserved Quantity<input [(ngModel)]="draft.inventory.quantityReserved" name="ireserved" type="number" min="0"></label><label class="sm:col-span-2">On-Hand Quantity<input [(ngModel)]="draft.inventory.quantityOnHand" name="ionhand" type="number" min="0" class="border-indigo-300 bg-indigo-50 font-bold"></label><button class="action-primary sm:col-span-2" type="submit">Save Ledger Entry</button></form></section></div></section> }
             @case ('movements') { <section><ng-container *ngTemplateOutlet="pageHead; context: { title: 'Movement Operations', desc: 'Monitor and execute stock adjustments, transfers, and corrections.' }"></ng-container><div class="grid gap-6 xl:grid-cols-[1.3fr_.7fr]"><section class="panel"><div class="panel-header"><div><h2>Activity Log</h2><p>Immutable ledger of all warehouse activity.</p></div></div><div class="overflow-x-auto"><table><thead><tr><th>Timestamp</th><th>Operation</th><th>Warehouse / Item</th><th>Ref.</th><th>Volume</th><th>Final Balance</th></tr></thead><tbody>@for (m of movements; track m.id) {<tr><td class="whitespace-nowrap text-xs font-medium text-slate-500">{{ m.occurredAt | date:'short' }}</td><td><span class="badge" [class.badge-green]="isInbound(m.movementType)" [class.badge-red]="!isInbound(m.movementType)">{{ label(m.movementType) }}</span></td><td><div class="font-bold text-slate-800">{{ warehouseName(m.warehouseId) }}</div><div class="text-xs text-indigo-600">{{ productName(m.productId) }}</div></td><td><span class="text-xs bg-slate-100 rounded px-1.5 py-0.5 border border-slate-200">{{ m.referenceType || 'N/A' }} #{{ m.referenceId || '--' }}</span></td><td class="font-black text-slate-900">{{ m.quantity }}</td><td class="font-bold text-slate-600">{{ m.balanceAfter }}</td></tr>} @empty {<tr><td colspan="6" class="empty">No log records yet.</td></tr>}</tbody></table></div></section><section class="panel"><div class="panel-header"><div><h2>Post Movement</h2><p>All operations are logged automatically.</p></div></div><form class="form-grid p-5" (ngSubmit)="saveMovement()"><label class="sm:col-span-2">Operation Type<select [(ngModel)]="draft.movement.movementType" name="mtype" required class="font-semibold text-indigo-900 bg-indigo-50 border-indigo-200">@for (type of movementTypes; track type) {<option [ngValue]="type">{{ label(type) }}</option>}</select></label><label>Target Warehouse<select [(ngModel)]="draft.movement.warehouseId" name="mwarehouse" required><option [ngValue]="null">Choose...</option>@for (w of warehouses; track w.id) {<option [ngValue]="w.id">{{ w.name }}</option>}</select></label><label>Product<select [(ngModel)]="draft.movement.productId" name="mproduct" required><option [ngValue]="null">Choose...</option>@for (p of products; track p.id) {<option [ngValue]="p.id">{{ p.name }}</option>}</select></label><label class="sm:col-span-2">Operation Volume (Qty)<input [(ngModel)]="draft.movement.quantity" name="mquantity" type="number" min="1" required class="font-black text-lg"></label><label>Ref Document<input [(ngModel)]="draft.movement.referenceType" name="mref" placeholder="e.g. Invoice"></label><label>Ref Code<input [(ngModel)]="draft.movement.referenceId" name="mrefid" type="number"></label><label class="sm:col-span-2">Notes / Justification<textarea [(ngModel)]="draft.movement.reason" name="mreason" rows="2"></textarea></label><button class="action-primary sm:col-span-2" type="submit">Commit Operation</button></form></section></div></section> }
@@ -236,7 +237,7 @@ const blankAddress = () => ({ street: '', city: '', state: '', postalCode: '', c
         </main>
       </div>
     </div>
-    
+
     <!-- Shared Page Header Template -->
     <ng-template #pageHead let-title="title" let-desc="desc">
       <div class="mb-8 flex flex-col justify-between gap-4 sm:flex-row sm:items-end animate-in fade-in slide-in-from-bottom-2">
